@@ -27,4 +27,8 @@ Route::post('custom-registration', [CustomAuthController::class, 'customRegistra
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [CustomAuthController::class, 'dashboard'])->name('dashboard'); 
     Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+    Route::get('profile/edit', [CustomAuthController::class, 'editProfile'])->name('profile.edit');
+    Route::post('profile/update', [CustomAuthController::class, 'updateProfile'])->name('profile.update');
+    Route::get('profile/change-password', [CustomAuthController::class, 'showChangePasswordForm'])->name('profile.change-password');
+    Route::post('profile/change-password', [CustomAuthController::class, 'changePassword'])->name('profile.change-password.post');
 });

@@ -37,7 +37,7 @@
 					</a>
 					<ul class="show-notification profile-notification">
 						<li>
-							<a href="#">
+							<a href="{{ route('profile.edit')}}">
 								<i class="ti-user"></i> Profile
 							</a>
 						</li>
