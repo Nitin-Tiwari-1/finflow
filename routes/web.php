@@ -25,9 +25,9 @@ Route::get('registration', [CustomAuthController::class, 'registration'])->name(
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom')->middleware('guest');
 
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', [CustomAuthController::class, 'dashboard'])->name('dashboard'); 
+    Route::get('dashboard', [CustomAuthController::class, 'dashboard'])->name('dashboard')->middleware('can:access-dashboard'); 
     Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
-    Route::get('profile/edit', [CustomAuthController::class, 'editProfile'])->name('profile.edit');
+    Route::get('profile/edit', [CustomAuthController::class, 'editProfile'])->name('profile.edit')->middleware('can:manage-profile');
     Route::post('profile/update', [CustomAuthController::class, 'updateProfile'])->name('profile.update');
     Route::get('profile/change-password', [CustomAuthController::class, 'showChangePasswordForm'])->name('profile.change-password');
     Route::post('profile/change-password', [CustomAuthController::class, 'changePassword'])->name('profile.change-password.post');

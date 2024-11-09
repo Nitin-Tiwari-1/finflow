@@ -82,15 +82,15 @@ class CustomAuthController extends Controller
       return User::create([
         'name' => $data['name'],
         'email' => $data['email'],
-        'password' => Hash::make($data['password'])
+        'password' => Hash::make($data['password']),
+        'role' => $data['role'] ?? User::ROLE_USER,
       ]);
     }
 
     public function dashboard()
     {
-        if (!Auth::check()) {
-            return redirect("login")->withErrors(['session' => 'Your session has expired. Please log in again.']);
-        }
+        $this->authorize('access-dashboard');
+
         $user = Auth::user();
         return view('dashboard.index', compact('user'));
     }
@@ -105,6 +105,8 @@ class CustomAuthController extends Controller
     
     public function editProfile()
     {
+        $this->authorize('manage-profile');
+
         $user = Auth::user();
         return view('auth.edit-profile', compact('user'));
     }
